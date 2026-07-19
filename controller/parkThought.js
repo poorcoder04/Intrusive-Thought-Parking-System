@@ -1,4 +1,4 @@
-const Thought = require('../models/Thought');
+const Thought = require('../models/thought');
 const { parseWorryTime } = require('../utils/dateParser');
 
 exports.parkNewThought = async (req, res) => {

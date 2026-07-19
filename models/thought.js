@@ -17,17 +17,20 @@ const thoughtSchema = new mongoose.Schema({
   },
   
   // The future date/time 
-  worryTime: {
-    type: Date,
-    required: [true, 'Please schedule a time to worry about this later'],
-    validate: {
-      validator: function(value) {
-        // Validation: The scheduled time must be in the future
+ worryTime: {
+  type: Date,
+  required: [true, 'Please schedule a time to worry about this later'],
+  validate: {
+    validator: function(value) {
+      // 'this.isNew' is true only when the document is created for the first time
+      if (this.isNew) {
         return value > new Date();
-      },
-      message: 'You cannot schedule a worry time in the past!'
-    }
-  },
+      }
+      return true; // Skip validation if we are just updating an existing document
+    },
+    message: 'The computed worry time must be in the future!'
+  }
+},
   
   // Tracks notification dispatch status
   isNotified: {
