@@ -1,3 +1,5 @@
+const Thought = require('../models/thought');
+
 /**
  * GET /api/thoughts/history
  * Retrieves all past, notified thoughts for the logged-in user to analyze patterns.
