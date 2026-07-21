@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thought Parking System â€” Clean Your Mind</title>
+  <title>Thought Parking System – Clean Your Mind</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/css/styles.css">
@@ -11,20 +11,28 @@
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen selection:bg-indigo-500 selection:text-white">
 
   <!-- Top Navigation -->
-  <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 py-4 px-6 flex justify-between items-center">
-    <div class="flex items-center gap-3">
+  <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 py-4 px-6 flex justify-between items-center gap-4">
+    <button onclick="showLandingView()" class="flex items-center gap-3 hover:opacity-80 transition">
       <div class="bg-indigo-600/20 text-indigo-400 p-2.5 rounded-xl border border-indigo-500/30 shadow-inner animate-pulse">
         <i class="fa-solid fa-square-parking text-xl"></i>
       </div>
-      <div>
+      <div class="text-left">
         <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Thought Parking Garage
         </h1>
         <p class="text-xs text-slate-400 hidden sm:block">Schedule your anxiety. Dominate your focus.</p>
       </div>
-    </div>
-    <div id="nav-auth-controls" class="flex items-center gap-4">
-      <!-- Dynamic authentication controls populate here -->
+    </button>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <div id="nav-landing-links" class="hidden md:flex items-center gap-3">
+        <button onclick="scrollToSection('what-are-section')" class="text-sm text-slate-400 hover:text-slate-200 transition">About</button>
+        <button onclick="scrollToSection('psychology-section')" class="text-sm text-slate-400 hover:text-slate-200 transition">Psychology</button>
+        <button onclick="scrollToHowItWorks()" class="text-sm text-slate-400 hover:text-slate-200 transition">How It Works</button>
+        <button onclick="scrollToGuide()" class="text-sm text-slate-400 hover:text-slate-200 transition">Guide</button>
+      </div>
+      <div id="nav-auth-controls" class="flex items-center gap-4">
+        <!-- Dynamic authentication controls populate here -->
+      </div>
     </div>
   </nav>
 
@@ -42,10 +50,723 @@
   </div>
 
   <!-- Primary Dynamic Content Container -->
-  <main class="max-w-7xl mx-auto p-4 md:p-8 min-h-[calc(100vh-80px)] flex flex-col justify-start items-center">
+  <main class="max-w-7xl mx-auto p-4 md:p-8 min-h-[calc(100vh-80px)]">
     
+    <!-- MODULE 0: LANDING/INTRODUCTION PAGE -->
+    <section id="landing-view" class="w-full">
+      
+      <!-- Hero Section -->
+      <div class="text-center py-16 md:py-24 space-y-6">
+        <div class="inline-block bg-indigo-600/10 border border-indigo-500/30 px-4 py-2 rounded-full mb-4">
+          <span class="text-indigo-400 text-sm font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-brain"></i> Mental Health Innovation
+          </span>
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+          <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Park Your Intrusive Thoughts
+          </span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          Stop letting urgent worries hijack your focus. Schedule them for later, and we'll remind you when it's actually time to worry.
+        </p>
+        
+        <p class="text-base text-slate-400 max-w-2xl mx-auto">
+          Anxiety thrives on urgency. By parking intrusive thoughts and assigning them a specific time slot, you strip away that false sense of urgency and reclaim your mental bandwidth.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
+          <button onclick="scrollToAuth()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold px-8 py-4 rounded-xl transition performance-shadow shadow-indigo-600/20 active:scale-[0.98] text-lg flex items-center gap-2">
+            <i class="fa-solid fa-rocket"></i> Get Started Free
+          </button>
+          <button onclick="scrollToHowItWorks()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-8 py-4 rounded-xl text-lg font-medium transition flex items-center gap-2">
+            <i class="fa-solid fa-play-circle"></i> See How It Works
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- SECTION: WHAT ARE INTRUSIVE THOUGHTS?                      -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="what-are-section" class="py-20 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-violet-600/10 border border-violet-500/30 px-4 py-2 rounded-full mb-6">
+            <i class="fa-solid fa-brain text-violet-400"></i>
+            <span class="text-violet-400 text-sm font-semibold">Understanding Your Mind</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
+            What Are
+            <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent"> Intrusive Thoughts?</span>
+          </h2>
+          <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            They arrive without warning. A random, unwanted thought barges into your mind, demanding attention — even when you're trying to focus, rest, or simply be present.
+          </p>
+        </div>
+
+        <!-- Empathy Opening Quote -->
+        <div class="relative bg-gradient-to-br from-violet-950/40 to-fuchsia-950/30 border border-violet-500/30 rounded-3xl p-8 md:p-12 mb-12">
+          <div class="absolute -top-4 left-8 text-6xl text-violet-400/40 font-serif leading-none select-none">"</div>
+          <p class="text-xl md:text-2xl text-slate-200 leading-relaxed font-light text-center px-4 md:px-12">
+            You're in the middle of something important, and suddenly — <span class="text-fuchsia-300 font-semibold">Did I send that email? What if I get sick? What if I said something wrong? What if something terrible happens?</span> The thought grips you and won't let go.
+          </p>
+          <div class="absolute -bottom-4 right-8 text-6xl text-violet-400/40 font-serif leading-none select-none rotate-180">"</div>
+        </div>
+
+        <!-- Definition Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-violet-600/20 border border-violet-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-microscope text-violet-400"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-200">The Scientific Definition</h3>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Intrusive thoughts are unwanted, involuntary thoughts, images, or urges that pop into your mind unbidden. They are a normal feature of the human brain — researchers estimate that <span class="text-slate-200 font-semibold">over 94% of people experience them regularly.</span>
+            </p>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              They are not signs of a character flaw, mental illness, or dangerous intentions. They are simply noise — generated by a brain that's wired to anticipate and protect.
+            </p>
+          </div>
+
+          <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-7 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-fuchsia-600/20 border border-fuchsia-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-triangle-exclamation text-fuchsia-400"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-200">The Real Problem</h3>
+            </div>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              The thought itself isn't the problem. <span class="text-slate-200 font-semibold">Your reaction to the thought is.</span> When we treat an intrusive thought as meaningful or urgent, we fuel a feedback loop: attention feeds anxiety, anxiety demands more attention, and focus becomes impossible.
+            </p>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              The harder you try to suppress it, the louder it gets — a well-documented effect psychologists call the <span class="text-fuchsia-300 font-semibold">"White Bear Phenomenon."</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- SECTION: CHARACTERISTICS                                    -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="characteristics-section" class="py-20">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-rose-600/10 border border-rose-500/30 px-4 py-2 rounded-full mb-6">
+            <i class="fa-solid fa-magnifying-glass text-rose-400"></i>
+            <span class="text-rose-400 text-sm font-semibold">Recognizing the Pattern</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold mb-6">
+            <span class="bg-gradient-to-r from-rose-400 to-orange-400 bg-clip-text text-transparent">
+              Their Characteristics
+            </span>
+          </h2>
+          <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+            Intrusive thoughts follow predictable patterns. Recognizing them is the first step to breaking their grip.
+          </p>
+        </div>
+
+        <!-- Characteristic Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-rose-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-rose-600/15 border border-rose-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bolt-lightning text-rose-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Sudden & Uninvited</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">They appear without any trigger or warning, often at the worst possible moments — during a presentation, falling asleep, or mid-conversation.</p>
+            <div class="text-xs text-rose-400/70 font-mono bg-rose-950/20 border border-rose-500/20 rounded-lg px-3 py-2">
+              "Wait — did I turn the stove off?" (while driving on the highway)
+            </div>
+          </div>
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-orange-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-orange-600/15 border border-orange-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-repeat text-orange-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Repetitive & Sticky</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">The same thought loops back again and again. Each attempt to push it away seems to give it more energy — like a mental boomerang.</p>
+            <div class="text-xs text-orange-400/70 font-mono bg-orange-950/20 border border-orange-500/20 rounded-lg px-3 py-2">
+              "I keep thinking about that embarrassing moment from 3 years ago..."
+            </div>
+          </div>
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-amber-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-amber-600/15 border border-amber-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-siren-on text-amber-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Feels Urgent</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">The brain's threat-detection system tags these thoughts as emergencies. Your body responds with real stress — racing heart, tight chest, scattered attention.</p>
+            <div class="text-xs text-amber-400/70 font-mono bg-amber-950/20 border border-amber-500/20 rounded-lg px-3 py-2">
+              "I NEED to figure this out right now or something bad will happen."
+            </div>
+          </div>
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-yellow-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-yellow-600/15 border border-yellow-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-masks-theater text-yellow-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Ego-Dystonic</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">They conflict with who you are. The thought feels alien, disturbing, or shameful — precisely because it contradicts your real values and character.</p>
+            <div class="text-xs text-yellow-400/70 font-mono bg-yellow-950/20 border border-yellow-500/20 rounded-lg px-3 py-2">
+              "Why did that thought even cross my mind? That's not me at all."
+            </div>
+          </div>
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-indigo-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-indigo-600/15 border border-indigo-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-magnifying-glass-arrow-right text-indigo-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Magnified by Attention</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Attention is fertilizer for intrusive thoughts. The more you analyze, ruminate, or fight them, the stronger they grow — this is the paradox of thought suppression.</p>
+            <div class="text-xs text-indigo-400/70 font-mono bg-indigo-950/20 border border-indigo-500/20 rounded-lg px-3 py-2">
+              "Don't think about it, don't think about it… (thinks about it more)"
+            </div>
+          </div>
+
+          <div class="group bg-slate-800/30 border border-slate-700/50 hover:border-purple-500/40 rounded-2xl p-7 space-y-4 transition-all duration-300 hover:bg-slate-800/50">
+            <div class="w-12 h-12 bg-purple-600/15 border border-purple-500/30 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-universal-access text-purple-400 text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">Universal — You're Not Alone</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Every human brain produces them. Students, doctors, artists, parents — everyone experiences intrusive thoughts. Having them is not a flaw. It's biology.</p>
+            <div class="text-xs text-purple-400/70 font-mono bg-purple-950/20 border border-purple-500/20 rounded-lg px-3 py-2">
+              94% of people report intrusive thoughts — <em>you are in good company.</em>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- SECTION: WHAT PSYCHOLOGY SAYS & HOW TO DEAL               -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="psychology-section" class="py-20">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-teal-600/10 border border-teal-500/30 px-4 py-2 rounded-full mb-6">
+            <i class="fa-solid fa-flask text-teal-400"></i>
+            <span class="text-teal-400 text-sm font-semibold">Evidence-Based Psychology</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold mb-6">
+            <span class="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
+              What Psychology Says
+            </span>
+          </h2>
+          <p class="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            Decades of clinical research have produced clear, proven strategies. Here's what actually works — and why.
+          </p>
+        </div>
+
+        <!-- Psychology Framework: The Core Insight -->
+        <div class="bg-gradient-to-r from-teal-950/40 via-slate-900 to-emerald-950/40 border border-teal-500/20 rounded-3xl p-8 md:p-12 mb-12">
+          <div class="max-w-4xl mx-auto">
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-teal-600/20 border border-teal-500/30 rounded-xl flex-shrink-0 flex items-center justify-center">
+                <i class="fa-solid fa-lightbulb text-teal-400 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-slate-200 mb-3">The Core Insight from CBT & ACT</h3>
+                <p class="text-slate-300 leading-relaxed">
+                  Both <span class="text-teal-300 font-semibold">Cognitive Behavioral Therapy (CBT)</span> and <span class="text-emerald-300 font-semibold">Acceptance and Commitment Therapy (ACT)</span> converge on the same truth:
+                </p>
+                <blockquote class="mt-4 text-xl text-slate-100 font-light border-l-4 border-teal-400 pl-6 italic">
+                  "A thought is just a thought. It is not a fact, not a command, and not a prophecy. Its power comes entirely from the attention and meaning you give it."
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/50">
+                <div class="text-teal-400 font-bold text-sm uppercase tracking-widest mb-3">CBT Approach</div>
+                <p class="text-sm text-slate-300 leading-relaxed">Challenge the thought's validity. Ask: <em>"Is this thought a fact or just a fear? What would I tell a friend who had this thought?"</em></p>
+              </div>
+              <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/50">
+                <div class="text-emerald-400 font-bold text-sm uppercase tracking-widest mb-3">ACT Approach</div>
+                <p class="text-sm text-slate-300 leading-relaxed">Defuse from the thought without fighting it. Observe it as a passing mental event: <em>"I notice I'm having the thought that…"</em> — then let it float by.</p>
+              </div>
+              <div class="bg-slate-900/60 rounded-xl p-5 border border-slate-700/50">
+                <div class="text-cyan-400 font-bold text-sm uppercase tracking-widest mb-3">Worry Postponement</div>
+                <p class="text-sm text-slate-300 leading-relaxed">Schedule a dedicated "worry window." Research by <em>Borkovec et al.</em> showed this technique significantly reduces intrusive thought frequency over time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How to Deal: Strategy Cards -->
+        <div class="max-w-5xl mx-auto">
+          <h3 class="text-2xl font-bold text-slate-200 mb-8 text-center">Proven Coping Strategies</h3>
+          <div class="space-y-5">
+
+            <div class="flex gap-5 items-start bg-slate-800/30 border border-slate-700/40 hover:border-teal-500/30 rounded-2xl p-6 transition-colors">
+              <div class="flex-shrink-0 w-12 h-12 bg-teal-600/20 border border-teal-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-clock text-teal-400 text-lg"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <h4 class="text-base font-bold text-slate-200">Worry Postponement (Scheduled Worry Time)</h4>
+                  <span class="text-xs bg-teal-600/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded-full">Most Effective</span>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed">Instead of engaging with or suppressing the thought, postpone it. Tell yourself: <em>"I'll think about this at 7 PM."</em> This validates the thought's existence without letting it consume you now. Studies show this reduces the frequency and intensity of intrusive thoughts significantly.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-5 items-start bg-slate-800/30 border border-slate-700/40 hover:border-emerald-500/30 rounded-2xl p-6 transition-colors">
+              <div class="flex-shrink-0 w-12 h-12 bg-emerald-600/20 border border-emerald-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-eye text-emerald-400 text-lg"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-slate-200 mb-2">Mindful Observation — Don't Engage, Just Notice</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">Observe the thought without judgment. Imagine it as a leaf floating down a stream — you see it, you acknowledge it, you don't grab it. This is the core of mindfulness-based interventions (MBCT) which have shown lasting reduction in anxiety and rumination.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-5 items-start bg-slate-800/30 border border-slate-700/40 hover:border-cyan-500/30 rounded-2xl p-6 transition-colors">
+              <div class="flex-shrink-0 w-12 h-12 bg-cyan-600/20 border border-cyan-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-pen-to-square text-cyan-400 text-lg"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-slate-200 mb-2">Externalizing — Write It Down</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">Getting a thought out of your head and onto paper (or a screen) reduces its emotional weight. Writing externalizes the thought, shifting it from an internal threat to an observable object. Your brain stops looping because it no longer needs to "hold" the thought.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-5 items-start bg-slate-800/30 border border-slate-700/40 hover:border-violet-500/30 rounded-2xl p-6 transition-colors">
+              <div class="flex-shrink-0 w-12 h-12 bg-violet-600/20 border border-violet-500/30 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-hand text-violet-400 text-lg"></i>
+              </div>
+              <div>
+                <h4 class="text-base font-bold text-slate-200 mb-2">Acceptance — Stop Fighting It</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">ACT teaches radical acceptance: the thought is there, and that's okay. The struggle against a thought creates more distress than the thought itself. Accepting its presence without giving it authority breaks the anxiety loop at the root.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- SECTION: HOW THIS WEBSITE HELPS — FOCUS & PRODUCTIVITY     -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="focus-section" class="py-20">
+
+        <!-- Bridge Banner -->
+        <div class="relative overflow-hidden bg-gradient-to-br from-indigo-900/40 via-purple-900/30 to-pink-900/20 border border-indigo-500/30 rounded-3xl p-10 md:p-14 mb-16 text-center">
+          <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-4 left-4 w-32 h-32 border border-white rounded-full"></div>
+            <div class="absolute bottom-4 right-4 w-48 h-48 border border-white rounded-full"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-white rounded-full"></div>
+          </div>
+          <div class="relative">
+            <div class="inline-flex items-center gap-2 bg-indigo-600/20 border border-indigo-500/30 px-4 py-2 rounded-full mb-6">
+              <i class="fa-solid fa-square-parking text-indigo-400"></i>
+              <span class="text-indigo-400 text-sm font-semibold">This Is Where We Come In</span>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-6">
+              <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Your Digital Worry Garage
+              </span>
+            </h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              Thought Parking System is the technology layer on top of the most effective psychological technique for intrusive thoughts — <span class="text-indigo-300 font-semibold">Scheduled Worry Time</span> — combined with externalizing, defusion, and a dose of humor to strip the thought of its power.
+            </p>
+          </div>
+        </div>
+
+        <!-- Split Layout: The Problem vs The Solution -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+          <!-- Before -->
+          <div class="bg-rose-950/20 border border-rose-500/20 rounded-2xl p-8 space-y-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-rose-600/20 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-rose-400"></i>
+              </div>
+              <h3 class="text-xl font-bold text-rose-300">Before: The Anxiety Loop</h3>
+            </div>
+            <div class="space-y-3 text-sm text-slate-400">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-rose-500/50 mt-1.5 text-xs"></i>
+                <span>Thought strikes. You try to ignore it. It gets louder.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-rose-500/50 mt-1.5 text-xs"></i>
+                <span>You engage with it. Now you're anxious AND unproductive.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-rose-500/50 mt-1.5 text-xs"></i>
+                <span>You try to solve it. There's nothing to solve. Frustration builds.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-rose-500/50 mt-1.5 text-xs"></i>
+                <span>Hours pass. The thought fades on its own — but your day is gone.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-rose-500/50 mt-1.5 text-xs"></i>
+                <span>The same thought returns tomorrow. The loop resets.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- After -->
+          <div class="bg-emerald-950/20 border border-emerald-500/20 rounded-2xl p-8 space-y-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 bg-emerald-600/20 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-check text-emerald-400"></i>
+              </div>
+              <h3 class="text-xl font-bold text-emerald-300">After: The Parking Method</h3>
+            </div>
+            <div class="space-y-3 text-sm text-slate-400">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-emerald-500/50 mt-1.5 text-xs"></i>
+                <span>Thought strikes. You open Thought Parking and type it out.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-emerald-500/50 mt-1.5 text-xs"></i>
+                <span>You schedule a specific time for it. Your brain gets a receipt.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-emerald-500/50 mt-1.5 text-xs"></i>
+                <span>You return to work. No suppression. No loop. Just focus.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-emerald-500/50 mt-1.5 text-xs"></i>
+                <span>Email arrives. You read it. Often the thought feels trivial now.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-circle text-emerald-500/50 mt-1.5 text-xs"></i>
+                <span>Urgency dissolved. Focus reclaimed. Pattern broken.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Focus & Productivity Impact Stats -->
+        <div class="text-center mb-12">
+          <h3 class="text-2xl font-bold text-slate-200 mb-4">Reclaiming Your Focus & Productivity</h3>
+          <p class="text-slate-400 max-w-2xl mx-auto text-sm">Every intrusive thought you park is focused energy returned to you.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-7 text-center space-y-3">
+            <div class="text-4xl font-black text-indigo-400">23 min</div>
+            <p class="text-sm text-slate-400">Average time lost refocusing after a single thought interruption, according to University of California research.</p>
+          </div>
+          <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-7 text-center space-y-3">
+            <div class="text-4xl font-black text-purple-400">94%</div>
+            <p class="text-sm text-slate-400">Of people experience intrusive thoughts regularly — proving this is a universal human challenge, not a personal weakness.</p>
+          </div>
+          <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-7 text-center space-y-3">
+            <div class="text-4xl font-black text-emerald-400">↓ 35%</div>
+            <p class="text-sm text-slate-400">Reduction in worry frequency with consistent Scheduled Worry Time practice, documented in clinical CBT studies.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- SECTION: HOPE & INSPIRATION                                 -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="hope-section" class="py-20 max-w-5xl mx-auto">
+
+        <!-- Gentle Opening -->
+        <div class="text-center mb-14">
+          <div class="inline-flex items-center gap-2 bg-amber-600/10 border border-amber-500/30 px-4 py-2 rounded-full mb-6">
+            <i class="fa-solid fa-sun text-amber-400"></i>
+            <span class="text-amber-400 text-sm font-semibold">A Message for You</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold mb-6">
+            <span class="bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+              You Are Not Your Thoughts
+            </span>
+          </h2>
+          <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            If you've been struggling with intrusive thoughts, know this — it's not a reflection of who you are, your character, or your worth. Your brain is doing its job, perhaps a little too enthusiastically.
+          </p>
+        </div>
+
+        <!-- Inspirational Quote Block -->
+        <div class="relative bg-gradient-to-br from-amber-950/30 to-orange-950/20 border border-amber-500/20 rounded-3xl p-10 mb-12 text-center">
+          <i class="fa-solid fa-quote-left text-5xl text-amber-400/20 absolute top-6 left-8"></i>
+          <p class="text-2xl md:text-3xl font-light text-slate-100 leading-relaxed mb-6 px-4 md:px-12">
+            You don't have to fight every thought. You just have to refuse to let it steal your <span class="text-amber-300 font-semibold">present moment.</span>
+          </p>
+          <i class="fa-solid fa-quote-right text-5xl text-amber-400/20 absolute bottom-6 right-8"></i>
+        </div>
+
+        <!-- Hope Cards -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-7 space-y-4">
+            <div class="text-4xl">🌱</div>
+            <h3 class="text-lg font-bold text-slate-200">Growth is Possible</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Every time you park a thought instead of drowning in it, you're training your brain. Neuroplasticity means these patterns genuinely change with practice — your future self will thank you.</p>
+          </div>
+          <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-7 space-y-4">
+            <div class="text-4xl">🧩</div>
+            <h3 class="text-lg font-bold text-slate-200">Small Steps, Real Change</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">You don't need to solve anxiety overnight. Parking one thought at a time builds a skill. Each small win — each moment of reclaimed focus — is evidence that you're getting better.</p>
+          </div>
+          <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-7 space-y-4">
+            <div class="text-4xl">💡</div>
+            <h3 class="text-lg font-bold text-slate-200">Humor is Medicine</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">The playful email reminders aren't just fun — they're therapeutic. Humor creates psychological distance from the thought, making it impossible for anxiety to take itself too seriously.</p>
+          </div>
+        </div>
+
+        <!-- Final Affirmation -->
+        <div class="bg-gradient-to-r from-slate-800/60 to-slate-800/40 border border-slate-600/50 rounded-2xl p-8 text-center space-y-4">
+          <p class="text-lg text-slate-200 font-light leading-relaxed max-w-3xl mx-auto">
+            Thousands of people have broken the intrusive thought loop using the exact techniques this system is built on. Therapists recommend it. Research supports it. And it doesn't require years of therapy or expensive apps.
+          </p>
+          <p class="text-xl font-bold text-slate-100">
+            It just requires one decision:
+          </p>
+          <p class="text-2xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            "I'll deal with this later — and I have a time for it."
+          </p>
+          <p class="text-slate-400 text-sm pt-2">
+            That single shift — from <em>suppression</em> to <em>scheduling</em> — is where freedom begins.
+          </p>
+        </div>
+      </div>
+
+      <!-- Divider before How It Works -->
+      <div class="flex items-center gap-4 py-8 max-w-2xl mx-auto">
+        <div class="flex-1 border-t border-slate-700/50"></div>
+        <div class="text-slate-600 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-circle-down text-indigo-500/60"></i>
+          <span>See how it works</span>
+          <i class="fa-solid fa-circle-down text-indigo-500/60"></i>
+        </div>
+        <div class="flex-1 border-t border-slate-700/50"></div>
+      </div>
+
+
+
+      <!-- How It Works Section -->
+      <div id="how-it-works-section" class="py-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <span class="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              How the Thought Parking System Works
+            </span>
+          </h2>
+          <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+            A simple three-step process to defuse anxiety and schedule your worries like calendar appointments.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- Step 1 -->
+          <div class="relative bg-slate-800/40 border border-slate-700/60 rounded-2xl p-8 text-center space-y-4">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold border-4 border-slate-900">
+              1
+            </div>
+            <div class="text-5xl text-indigo-400 pt-4">
+              <i class="fa-solid fa-keyboard"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-200">Capture the Thought</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              When an intrusive worry strikes, type it into the Thought Parking form verbatim. Get it out of your head and into the system.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative bg-slate-800/40 border border-slate-700/60 rounded-2xl p-8 text-center space-y-4">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold border-4 border-slate-900">
+              2
+            </div>
+            <div class="text-5xl text-purple-400 pt-4">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-200">Schedule Worry Time</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Pick a specific date and time to worry about it. Today at 7 PM? Tomorrow morning? You're in control of the schedule.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative bg-slate-800/40 border border-slate-700/60 rounded-2xl p-8 text-center space-y-4">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold border-4 border-slate-900">
+              3
+            </div>
+            <div class="text-5xl text-emerald-400 pt-4">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-200">Get a Funny Reminder</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              At your scheduled time, we'll send a playful email reminder. Now you can worry—but only if you still want to.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <div class="inline-block bg-emerald-950/30 border border-emerald-500/30 rounded-xl px-6 py-4">
+            <p class="text-emerald-300 text-sm font-semibold flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb"></i> 
+              Result: The urgency dissolves. You've told your brain "I'll handle this later," and it actually believes you.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-3xl p-8 md:p-12 my-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-100">
+            Why This Actually Works
+          </h2>
+          <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+            Based on cognitive-behavioral therapy principles for managing intrusive thoughts and anxiety.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 space-y-3">
+            <i class="fa-solid fa-shield-halved text-3xl text-indigo-400"></i>
+            <h3 class="text-lg font-bold text-slate-200">Removes False Urgency</h3>
+            <p class="text-sm text-slate-400">Scheduling the thought proves it's not a real emergency, which diffuses the anxiety spike.</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 space-y-3">
+            <i class="fa-solid fa-brain text-3xl text-purple-400"></i>
+            <h3 class="text-lg font-bold text-slate-200">Cognitive Offloading</h3>
+            <p class="text-sm text-slate-400">Your brain can stop obsessing because the system is now "remembering" the thought for you.</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 space-y-3">
+            <i class="fa-solid fa-face-laugh-beam text-3xl text-amber-400"></i>
+            <h3 class="text-lg font-bold text-slate-200">Humor Defuses Tension</h3>
+            <p class="text-sm text-slate-400">The playful email reminder reframes the worry, making it feel less threatening.</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 space-y-3">
+            <i class="fa-solid fa-chart-line text-3xl text-emerald-400"></i>
+            <h3 class="text-lg font-bold text-slate-200">Pattern Awareness</h3>
+            <p class="text-sm text-slate-400">Track your worry history to identify patterns and see how often thoughts lose relevance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Guide Section -->
+      <div id="user-guide-section" class="py-16 max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <span class="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+              Quick Start Guide
+            </span>
+          </h2>
+          <p class="text-lg text-slate-400">
+            Get up and running in under 2 minutes.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-slate-800/30 border border-slate-700/40 rounded-xl p-6 flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+              1
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-200 mb-2">Create Your Free Account</h3>
+              <p class="text-slate-400 text-sm">Click "Get Started" below, enter your name, email, and password. No credit card required.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/30 border border-slate-700/40 rounded-xl p-6 flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+              2
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-200 mb-2">Park Your First Thought</h3>
+              <p class="text-slate-400 text-sm mb-3">Write the intrusive thought exactly as it appears in your mind. Choose a date (Today/Tomorrow/Day After) and time (e.g., "7:30 PM").</p>
+              <div class="bg-slate-900/60 border border-slate-600 rounded-lg p-3 text-xs text-slate-300 font-mono">
+                Example: "Did I lock the front door?" → Tomorrow, 8:00 AM
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/30 border border-slate-700/40 rounded-xl p-6 flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">
+              3
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-200 mb-2">Receive Your Reminder</h3>
+              <p class="text-slate-400 text-sm">At your scheduled time, check your email for a lighthearted reminder. By then, the thought often feels less important.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/30 border border-slate-700/40 rounded-xl p-6 flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">
+              4
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-200 mb-2">Review Your History</h3>
+              <p class="text-slate-400 text-sm">Check the "Released History" section in your dashboard to see all past worries and identify patterns.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 bg-gradient-to-r from-indigo-950/50 to-purple-950/50 border border-indigo-500/30 rounded-xl p-6">
+          <div class="flex items-start gap-4">
+            <div class="text-3xl text-indigo-400">
+              <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-indigo-300 mb-2">Pro Tips for Best Results</h3>
+              <ul class="space-y-2 text-sm text-slate-300">
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                  <span>Be specific with your thought. Write it exactly as your brain presents it.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                  <span>Schedule at least 2-3 hours in the future for Today, or use Tomorrow for non-urgent worries.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                  <span>Use the time format "HH:MM AM/PM" (e.g., 12:30 PM, 09:15 AM).</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                  <span>Check your spam folder if you don't see the email at the scheduled time.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final CTA Section -->
+      <div id="auth-anchor" class="text-center py-16 bg-gradient-to-br from-indigo-900/20 via-purple-900/20 to-pink-900/20 border border-indigo-500/20 rounded-3xl my-16">
+        <div class="max-w-2xl mx-auto space-y-6 p-8">
+          <div class="text-5xl">
+            <i class="fa-solid fa-rocket text-indigo-400"></i>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-100">
+            Ready to Reclaim Your Focus?
+          </h2>
+          <p class="text-lg text-slate-300">
+            Stop letting intrusive thoughts control your day. Start parking them instead.
+          </p>
+          <button onclick="showAuthView()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-10 py-5 rounded-xl transition performance-shadow shadow-indigo-600/30 active:scale-[0.98] text-xl flex items-center gap-3 mx-auto">
+            <i class="fa-solid fa-user-plus"></i> Create Free Account Now
+          </button>
+          <p class="text-xs text-slate-500">No credit card required • Takes 30 seconds • 100% free</p>
+        </div>
+      </div>
+
+    </section>
+
     <!-- MODULE 1: PREMIUM AUTHENTICATION VIEW -->
-    <section id="auth-view" class="w-full max-w-md bg-slate-800/50 border border-slate-700/50 p-8 rounded-3xl shadow-2xl backdrop-blur-md mt-12 transition-all duration-500">
+    <section id="auth-view" class="w-full max-w-md bg-slate-800/50 border border-slate-700/50 p-8 rounded-3xl shadow-2xl backdrop-blur-md mx-auto mt-12 transition-all duration-500 hidden">
+      
+      <!-- Back to Home -->
+      <div class="mb-6">
+        <button onclick="showLandingView()" class="text-sm text-slate-400 hover:text-slate-200 transition flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </button>
+      </div>
       <div class="flex justify-center gap-2 mb-8 bg-slate-950/60 p-1.5 rounded-2xl border border-slate-800">
         <button id="tab-login" class="flex-1 text-center font-medium py-2.5 rounded-xl transition-all duration-300 bg-indigo-600 text-white shadow-lg">
           <i class="fa-solid fa-right-to-bracket mr-2"></i>Login
@@ -111,7 +832,7 @@
     </section>
 
     <!-- MODULE 2: INTERACTIVE ANALYTICS & ENGINE DASHBOARD (Hidden Initially) -->
-    <section id="dashboard-view" class="w-full grid lg:grid-cols-3 gap-8 hidden opacity-0 transition-opacity duration-500">
+    <section id="dashboard-view" class="w-full grid lg:grid-cols-3 gap-8 hidden opacity-0 transition-opacity duration-500 mt-4">
       
       <!-- Control Panel: Park a Thought -->
       <div class="lg:col-span-1 bg-slate-800/40 border border-slate-700/60 p-6 rounded-2xl h-fit space-y-6">
@@ -183,7 +904,24 @@
     </section>
 
   </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-square-parking text-indigo-400"></i>
+        <span>Thought Parking Garage — Schedule your anxiety.</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <button onclick="scrollToHowItWorks()" class="hover:text-slate-300 transition">How It Works</button>
+        <button onclick="scrollToGuide()" class="hover:text-slate-300 transition">Guide</button>
+        <button onclick="showAuthView('register')" class="hover:text-slate-300 transition">Sign Up Free</button>
+      </div>
+    </div>
+  </footer>
+
   <script src="/js/app.js"></script>
 </body>
 </html>
+
 

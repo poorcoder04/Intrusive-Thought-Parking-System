@@ -4,7 +4,8 @@
 const state = {
   token: localStorage.getItem('token') || null,
   user: JSON.parse(localStorage.getItem('user')) || null,
-  activeTab: 'login'
+  activeTab: 'login',
+  currentView: 'landing'  // 'landing' | 'auth' | 'dashboard'
 };
 
 // Application Initialization
@@ -25,6 +26,36 @@ function setupEventHandlers() {
     showAlert('Dashboard refreshed.', 'success');
   });
 }
+
+// ─── Landing Page Navigation ─────────────────────────────────────────────────
+
+function showLandingView() {
+  if (state.token && state.user) return; // Already logged in, stay on dashboard
+  document.getElementById('landing-view').classList.remove('hidden');
+  document.getElementById('auth-view').classList.add('hidden');
+  document.getElementById('nav-landing-links').classList.remove('hidden');
+  document.getElementById('nav-landing-links').classList.add('md:flex');
+  state.currentView = 'landing';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showAuthView(startTab = 'register') {
+  document.getElementById('landing-view').classList.add('hidden');
+  document.getElementById('auth-view').classList.remove('hidden');
+  document.getElementById('nav-landing-links').classList.add('hidden');
+  state.currentView = 'auth';
+  switchAuthTab(startTab);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scrollToHowItWorks() { scrollToSection('how-it-works-section'); }
+function scrollToGuide()       { scrollToSection('user-guide-section'); }
+function scrollToAuth()        { scrollToSection('auth-anchor'); }
 
 async function apiRequest(path, options = {}) {
   const headers = {
@@ -187,15 +218,20 @@ function escapeHtml(value) {
 
 // Auth Status Gatekeeper
 function checkAuthStatus() {
+  const landingView = document.getElementById('landing-view');
   const authView = document.getElementById('auth-view');
   const dashboardView = document.getElementById('dashboard-view');
   const navControls = document.getElementById('nav-auth-controls');
+  const navLandingLinks = document.getElementById('nav-landing-links');
 
   if (state.token && state.user) {
     // User is logged in: Show Dashboard
+    landingView.classList.add('hidden');
     authView.classList.add('hidden');
     dashboardView.classList.remove('hidden');
+    navLandingLinks.classList.add('hidden');
     setTimeout(() => dashboardView.classList.remove('opacity-0'), 50);
+    state.currentView = 'dashboard';
 
     navControls.innerHTML = `
       <span class="text-sm text-slate-400 hidden sm:inline">Logged in as <strong class="text-slate-200">${state.user.name}</strong></span>
@@ -208,15 +244,26 @@ function checkAuthStatus() {
     fetchActiveThoughts();
     fetchThoughtHistory();
   } else {
-    // User is logged out: Show Auth Forms
+    // User is logged out: Show Landing page
     dashboardView.classList.add('hidden');
     dashboardView.classList.add('opacity-0');
-    authView.classList.remove('hidden');
+    authView.classList.add('hidden');
+
+    // Only show landing if we're not already intentionally on auth
+    if (state.currentView !== 'auth') {
+      landingView.classList.remove('hidden');
+      navLandingLinks.classList.remove('hidden');
+      navLandingLinks.classList.add('md:flex');
+      state.currentView = 'landing';
+    }
 
     navControls.innerHTML = `
-      <span class="text-xs bg-slate-950 border border-slate-800 text-indigo-400 px-3 py-1.5 rounded-lg font-medium">
-        <i class="fa-solid fa-lock mr-1.5"></i> Secure Session Out
-      </span>
+      <button onclick="showAuthView('login')" class="text-sm text-slate-400 hover:text-slate-200 transition px-3 py-2">
+        Log In
+      </button>
+      <button onclick="showAuthView('register')" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold px-4 py-2 rounded-xl text-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </button>
     `;
   }
 }
@@ -248,6 +295,7 @@ function handleLogout() {
   localStorage.removeItem('user');
   state.token = null;
   state.user = null;
+  state.currentView = 'landing';
   showAlert('Session terminated successfully.', 'success');
   checkAuthStatus();
 }
