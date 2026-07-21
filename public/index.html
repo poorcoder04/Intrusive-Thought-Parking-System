@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thought Parking System â€” Clean Your Mind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Navigation -->
+  <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 py-4 px-6 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div class="bg-indigo-600/20 text-indigo-400 p-2.5 rounded-xl border border-indigo-500/30 shadow-inner animate-pulse">
+        <i class="fa-solid fa-square-parking text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Thought Parking Garage
+        </h1>
+        <p class="text-xs text-slate-400 hidden sm:block">Schedule your anxiety. Dominate your focus.</p>
+      </div>
+    </div>
+    <div id="nav-auth-controls" class="flex items-center gap-4">
+      <!-- Dynamic authentication controls populate here -->
+    </div>
+  </nav>
+
+  <!-- Notification Banner Hub -->
+  <div id="alert-container" class="fixed top-20 right-6 z-50 max-w-sm w-full transition-all duration-300 transform translate-x-full hidden">
+    <div id="alert-box" class="p-4 rounded-xl flex items-start gap-3 shadow-2xl border backdrop-blur-md">
+      <div id="alert-icon" class="text-lg mt-0.5"></div>
+      <div class="flex-1">
+        <p id="alert-message" class="text-sm font-semibold"></p>
+      </div>
+      <button onclick="dismissAlert()" class="text-slate-400 hover:text-slate-200 transition">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Dynamic Content Container -->
+  <main class="max-w-7xl mx-auto p-4 md:p-8 min-h-[calc(100vh-80px)] flex flex-col justify-start items-center">
+    
+    <!-- MODULE 1: PREMIUM AUTHENTICATION VIEW -->
+    <section id="auth-view" class="w-full max-w-md bg-slate-800/50 border border-slate-700/50 p-8 rounded-3xl shadow-2xl backdrop-blur-md mt-12 transition-all duration-500">
+      <div class="flex justify-center gap-2 mb-8 bg-slate-950/60 p-1.5 rounded-2xl border border-slate-800">
+        <button id="tab-login" class="flex-1 text-center font-medium py-2.5 rounded-xl transition-all duration-300 bg-indigo-600 text-white shadow-lg">
+          <i class="fa-solid fa-right-to-bracket mr-2"></i>Login
+        </button>
+        <button id="tab-register" class="flex-1 text-center font-medium py-2.5 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-200">
+          <i class="fa-solid fa-user-plus mr-2"></i>Register
+        </button>
+      </div>
+
+      <!-- Login Form Component -->
+      <form id="login-form" class="space-y-5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-500"></i>
+            <input type="email" id="login-email" required placeholder="name@domain.com" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-500"></i>
+            <input type="password" id="login-password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3 rounded-xl transition performance-shadow shadow-indigo-600/20 active:scale-[0.98]">
+          Sign In to Garage
+        </button>
+      </form>
+
+      <!-- Register Form Component (Hidden by default) -->
+      <form id="register-form" class="space-y-5 hidden">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Full Name</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-500"></i>
+            <input type="text" id="reg-name" placeholder="John Doe" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-500"></i>
+            <input type="email" id="reg-email" placeholder="name@domain.com" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-500"></i>
+            <input type="password" id="reg-password" minlength="6" placeholder="Min 6 characters" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-3 rounded-xl transition active:scale-[0.98]">
+          Create Free Account
+        </button>
+      </form>
+    </section>
+
+    <!-- MODULE 2: INTERACTIVE ANALYTICS & ENGINE DASHBOARD (Hidden Initially) -->
+    <section id="dashboard-view" class="w-full grid lg:grid-cols-3 gap-8 hidden opacity-0 transition-opacity duration-500">
+      
+      <!-- Control Panel: Park a Thought -->
+      <div class="lg:col-span-1 bg-slate-800/40 border border-slate-700/60 p-6 rounded-2xl h-fit space-y-6">
+        <div class="border-b border-slate-700 pb-4">
+          <h2 class="text-lg font-bold flex items-center gap-2 text-indigo-400">
+            <i class="fa-solid fa-square-plus"></i> Park Intrusive Thought
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Isolate your anxiety immediately to free up cognitive bandwith.</p>
+        </div>
+
+        <form id="park-form" class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">What's occupying your mind?</label>
+            <textarea id="thought-content" required rows="4" placeholder="Type the intrusive worry here verbatim..." 
+              class="w-full p-4 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-100 resize-none placeholder:text-slate-600"></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Which Day?</label>
+              <select id="thought-date" class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200">
+                <option value="Today">Today</option>
+                <option value="Tomorrow">Tomorrow</option>
+                <option value="The next day">The next day</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Worry Time</label>
+              <input type="text" id="thought-time" required placeholder="12:30 AM" 
+                class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200 placeholder:text-slate-600">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition flex justify-center items-center gap-2 group shadow-lg shadow-indigo-600/10">
+            <i class="fa-solid fa-parking transition group-hover:rotate-12"></i> Lock & Park Thought
+          </button>
+        </form>
+      </div>
+
+      <!-- Real-Time Data Pipeline Monitor -->
+      <div class="lg:col-span-2 flex flex-col gap-8">
+        
+        <!-- Live Active Queues -->
+        <div class="bg-slate-800/30 border border-slate-700/40 p-6 rounded-2xl flex-1">
+          <div class="flex justify-between items-center border-b border-slate-700/60 pb-4 mb-4">
+            <h3 class="text-md font-bold text-amber-400 flex items-center gap-2">
+              <i class="fa-solid fa-hourglass-half animate-spin-slow"></i> Active Shelved Worries (<span id="active-count">0</span>)
+            </h3>
+            <button id="btn-manual-test" class="text-xs bg-slate-950/80 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 text-purple-400 font-medium">
+              <i class="fa-solid fa-bolt"></i> Run Cron Force-Dispatch
+            </button>
+          </div>
+          <div id="active-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+            <!-- Render active thoughts dynamic components -->
+          </div>
+        </div>
+
+        <!-- Analytical History Matrix (Pattern Tracker) -->
+        <div class="bg-slate-800/30 border border-slate-700/40 p-6 rounded-2xl flex-1">
+          <h3 class="text-md font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-700/60 pb-4 mb-4">
+            <i class="fa-solid fa-clock-rotate-left"></i> Released History & Cognition Log (<span id="history-count">0</span>)
+          </h3>
+          <div id="history-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+            <!-- Render history items dynamic components -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <script src="/js/app.js"></script>
+</body>
+</html>
+
