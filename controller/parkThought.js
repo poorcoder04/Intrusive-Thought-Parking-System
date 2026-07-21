@@ -3,34 +3,41 @@ const { parseWorryTime } = require('../utils/dateParser');
 
 exports.parkNewThought = async (req, res) => {
   try {
-    const { content, dateOption, time } = req.body;
+    const { content, dateOption, time, tzOffset, customDate } = req.body;
 
-    // Validate input presence
-    if (!content || !dateOption || !time) {
-      return res.status(400).json({ 
-        message: 'Content, date option (Today/Tomorrow/The next day), and time are required.' 
-      });
+    // Fix #7: Validate presence AND reject whitespace-only content
+    if (!content || typeof content !== 'string' || content.trim().length === 0) {
+      return res.status(400).json({ message: 'Thought content cannot be empty.' });
+    }
+    if (content.trim().length > 1000) {
+      return res.status(400).json({ message: 'Thought content must be under 1000 characters.' });
+    }
+    if (!dateOption) {
+      return res.status(400).json({ message: 'Please select a date option.' });
+    }
+    if (!time) {
+      return res.status(400).json({ message: 'Please select a time.' });
     }
 
-    // Convert friendly presets to a real Date object
+    // Fix #3: Pass client timezone offset so dateParser computes correct UTC time
+    const clientTzOffset = typeof tzOffset === 'number' ? tzOffset : 0;
+
     let calculatedWorryTime;
     try {
-      calculatedWorryTime = parseWorryTime(dateOption, time);
+      calculatedWorryTime = parseWorryTime(dateOption, time, clientTzOffset, customDate);
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }
 
-    // Check if the calculated time is in the past (e.g., choosing 'Today' at 2:00 PM when it's already 3:00 PM)
     if (calculatedWorryTime <= new Date()) {
-      return res.status(400).json({ 
-        message: 'The time you selected has already passed for today. Please pick a later time or choose Tomorrow.' 
+      return res.status(400).json({
+        message: 'The selected time has already passed. Please pick a future time.'
       });
     }
 
-    // Save to database
     const newThought = await Thought.create({
-      user: req.user.id, // Protected route provides this
-      content,
+      user: req.user.id,
+      content: content.trim(),
       worryTime: calculatedWorryTime
     });
 
@@ -40,6 +47,6 @@ exports.parkNewThought = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error. Please try again later.' });
   }
 };
