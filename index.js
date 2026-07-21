@@ -7,17 +7,17 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// ─── Fix #20: CORS ────────────────────────────────────────────────────────────
+
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || '*',
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// ─── Fix #12: Body size limit (10 kb) ────────────────────────────────────────
+//Body size limit (10 kb) 
 app.use(express.json({ limit: '10kb' }));
 
-// ─── Fix #11: Rate limiting on auth routes ───────────────────────────────────
+// Rate limiting on auth routes 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,  // 15-minute window
   max: 20,                    // max 20 attempts per window per IP
@@ -26,10 +26,10 @@ const authLimiter = rateLimit({
   message: { message: 'Too many attempts. Please wait 15 minutes and try again.' }
 });
 
-// ─── Static files ─────────────────────────────────────────────────────────────
+//  Static files 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+//Routes 
 const authRoutes           = require('./route/authRoute.js');
 const parkThoughtRoutes    = require('./route/parkThoughtRoute.js');
 const activeThoughtRoutes  = require('./route/activeThoughtRoute.js');
@@ -42,20 +42,18 @@ app.use('/api/thoughts', activeThoughtRoutes);
 app.use('/api/thoughts', notifiedThoughtRoutes);
 app.use('/api/thoughts', deleteThoughtRoutes);
 
-// SPA fallback — serve index.html for any unmatched GET (client-side routing)
-// Express 5 requires '/{*path}' instead of the deprecated '*' wildcard
+
 app.get('/{*path}', (req, res, next) => {
-  // Let API 404s fall through to the JSON error handler below
   if (req.path.startsWith('/api/')) return next();
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ─── Fix #19: JSON 404 handler for unmatched API routes ──────────────────────
+//  JSON 404 handler for unmatched API routes 
 app.use((req, res, next) => {
   res.status(404).json({ message: `Route ${req.method} ${req.path} not found.` });
 });
 
-// ─── Fix #19: Global error handler ───────────────────────────────────────────
+// Global error handler 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.error('[ERROR]', err.stack || err.message);
@@ -65,7 +63,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ─── Fix #4: Connect DB first, THEN start cron + server ──────────────────────
 const connectDB = require('./config/db.js');
 const { initCronJobs } = require('./services/cronServices');
 

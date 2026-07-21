@@ -8,10 +8,10 @@ const state = {
   currentView: 'landing'  // 'landing' | 'auth' | 'dashboard'
 };
 
-// ─── Initialisation ───────────────────────────────────────────────────────────
+// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
   setupEventHandlers();
-  initCustomDatePicker();   // Fix #13: set min date on the custom date input
+  initCustomDatePicker();   // set min date on the custom date input
   checkAuthStatus();
 });
 
@@ -21,14 +21,9 @@ function setupEventHandlers() {
   document.getElementById('login-form').addEventListener('submit', handleLogin);
   document.getElementById('register-form').addEventListener('submit', handleRegister);
   document.getElementById('park-form').addEventListener('submit', handleParkThought);
-  document.getElementById('btn-manual-test').addEventListener('click', () => {
-    fetchActiveThoughts();
-    fetchThoughtHistory();
-    showAlert('Dashboard refreshed.', 'success');
-  });
 }
 
-// Fix #13: Set the minimum selectable date to today so users can't pick the past
+// Set the minimum selectable date to today so users can't pick the past
 function initCustomDatePicker() {
   const input = document.getElementById('thought-custom-date');
   if (!input) return;
@@ -39,7 +34,7 @@ function initCustomDatePicker() {
   input.min = `${yyyy}-${mm}-${dd}`;
 }
 
-// Fix #13: Show/hide the custom date input based on the dropdown selection
+// Show/hide the custom date input based on the dropdown selection
 function handleDateOptionChange(value) {
   const wrapper = document.getElementById('custom-date-wrapper');
   const customInput = document.getElementById('thought-custom-date');
@@ -53,7 +48,7 @@ function handleDateOptionChange(value) {
   }
 }
 
-// ─── Landing Page Navigation ──────────────────────────────────────────────────
+// Landing Page Navigation
 function showLandingView() {
   if (state.token && state.user) return;
   document.getElementById('landing-view').classList.remove('hidden');
@@ -81,7 +76,7 @@ function scrollToHowItWorks() { scrollToSection('how-it-works-section'); }
 function scrollToGuide()       { scrollToSection('user-guide-section'); }
 function scrollToAuth()        { scrollToSection('auth-anchor'); }
 
-// ─── API Helper ───────────────────────────────────────────────────────────────
+// API Helper
 async function apiRequest(path, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
@@ -100,7 +95,7 @@ async function apiRequest(path, options = {}) {
   return data;
 }
 
-// ─── Auth Handlers ────────────────────────────────────────────────────────────
+// Auth Handlers
 async function handleLogin(event) {
   event.preventDefault();
   const btn = event.target.querySelector('button[type="submit"]');
@@ -148,7 +143,7 @@ async function handleRegister(event) {
   }
 }
 
-// ─── Park Thought Handler ─────────────────────────────────────────────────────
+// Park Thought Handler
 async function handleParkThought(event) {
   event.preventDefault();
   const btn = event.target.querySelector('button[type="submit"]');
@@ -156,12 +151,12 @@ async function handleParkThought(event) {
 
   try {
     const dateOption  = document.getElementById('thought-date').value;
-    const timeValue   = document.getElementById('thought-time').value;  // Fix #15: HH:MM from native picker
+    const timeValue   = document.getElementById('thought-time').value;  // HH:MM from native picker
     const customDate  = dateOption === 'custom'
-      ? document.getElementById('thought-custom-date').value   // Fix #13: YYYY-MM-DD
+      ? document.getElementById('thought-custom-date').value   // YYYY-MM-DD
       : undefined;
 
-    // Fix #3: Send the client's timezone offset so the server computes correct UTC time.
+    // Send the client's timezone offset so the server computes correct UTC time.
     // getTimezoneOffset() returns minutes: positive = behind UTC, negative = ahead.
     const tzOffset = new Date().getTimezoneOffset();
 
@@ -181,8 +176,8 @@ async function handleParkThought(event) {
     document.getElementById('custom-date-wrapper').classList.add('hidden');
     document.getElementById('thought-custom-date').required = false;
 
-    showAlert('Thought parked. Go reclaim your focus.', 'success');
     fetchActiveThoughts();
+    openParkModal();
   } catch (error) {
     showAlert(error.message);
   } finally {
@@ -190,8 +185,34 @@ async function handleParkThought(event) {
   }
 }
 
-// ─── Delete Thought ───────────────────────────────────────────────────────────
-// Fix #14: Cancel/delete a parked thought before it fires
+// Modal: open after a thought is successfully parked
+function openParkModal() {
+  const overlay = document.getElementById('park-modal-overlay');
+  const card    = document.getElementById('park-modal-card');
+  overlay.classList.remove('hidden');
+  // Tiny delay so the CSS transition plays from the scaled-down state
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    card.classList.remove('scale-90', 'opacity-0');
+    card.classList.add('scale-100', 'opacity-100');
+  }));
+}
+
+// Modal: close and reset transition classes so it animates correctly next time
+function closeParkModal() {
+  const overlay = document.getElementById('park-modal-overlay');
+  const card    = document.getElementById('park-modal-card');
+  card.classList.remove('scale-100', 'opacity-100');
+  card.classList.add('scale-90', 'opacity-0');
+  setTimeout(() => overlay.classList.add('hidden'), 280);
+}
+
+// Close modal when user presses Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeParkModal();
+});
+
+// Delete Thought
+// Cancel/delete a parked thought before it fires
 async function deleteThought(thoughtId) {
   if (!confirm('Cancel this parked thought? The scheduled reminder will not be sent.')) return;
 
@@ -204,7 +225,7 @@ async function deleteThought(thoughtId) {
   }
 }
 
-// ─── Data Fetching ────────────────────────────────────────────────────────────
+// Data Fetching
 async function fetchActiveThoughts() {
   try {
     const data = await apiRequest('/thoughts/active');
@@ -225,8 +246,8 @@ async function fetchThoughtHistory() {
   }
 }
 
-// ─── Render Helpers ───────────────────────────────────────────────────────────
-// Fix #14: showDelete flag controls whether the delete button renders (active only)
+// Render Helpers
+// showDelete flag controls whether the delete button renders (active only)
 function renderThoughtList(listId, thoughts, countId, emptyMessage, showDelete) {
   const list = document.getElementById(listId);
   document.getElementById(countId).innerText = thoughts.length;
@@ -280,7 +301,7 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
-// ─── Session Persistence ──────────────────────────────────────────────────────
+// Session Persistence
 function persistSession(data) {
   state.token = data.token;
   state.user  = data.user;
@@ -288,7 +309,7 @@ function persistSession(data) {
   localStorage.setItem('user', JSON.stringify(data.user));
 }
 
-// ─── Auth Status Gatekeeper ───────────────────────────────────────────────────
+// Auth Status Gatekeeper
 function checkAuthStatus() {
   const landingView     = document.getElementById('landing-view');
   const authView        = document.getElementById('auth-view');
@@ -336,7 +357,7 @@ function checkAuthStatus() {
   }
 }
 
-// ─── Tab Switcher ─────────────────────────────────────────────────────────────
+// Tab Switcher
 function switchAuthTab(tab) {
   state.activeTab = tab;
   const loginForm    = document.getElementById('login-form');
@@ -360,7 +381,7 @@ function switchAuthTab(tab) {
   }
 }
 
-// ─── Logout ───────────────────────────────────────────────────────────────────
+// Logout
 function handleLogout() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
@@ -371,7 +392,7 @@ function handleLogout() {
   checkAuthStatus();
 }
 
-// ─── Toast Alert ──────────────────────────────────────────────────────────────
+// Toast Alert
 let alertTimer = null;
 
 function showAlert(message, type = 'error') {
@@ -404,7 +425,7 @@ function dismissAlert() {
   setTimeout(() => container.classList.add('hidden'), 300);
 }
 
-// ─── UI Utilities ─────────────────────────────────────────────────────────────
+// UI Utilities
 function setButtonLoading(btn, loading, label) {
   if (!btn) return;
   btn.disabled   = loading;
@@ -412,3 +433,4 @@ function setButtonLoading(btn, loading, label) {
     ? '<i class="fa-solid fa-spinner fa-spin mr-2"></i>' + label
     : label;
 }
+

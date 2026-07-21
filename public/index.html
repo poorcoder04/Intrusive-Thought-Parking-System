@@ -890,13 +890,10 @@
         
         <!-- Live Active Queues -->
         <div class="bg-slate-800/30 border border-slate-700/40 p-6 rounded-2xl flex-1">
-          <div class="flex justify-between items-center border-b border-slate-700/60 pb-4 mb-4">
+          <div class="border-b border-slate-700/60 pb-4 mb-4">
             <h3 class="text-md font-bold text-amber-400 flex items-center gap-2">
-              <i class="fa-solid fa-hourglass-half animate-spin-slow"></i> Active Shelved Worries (<span id="active-count">0</span>)
+              <i class="fa-solid fa-hourglass-half animate-spin-slow"></i> Your Parked Thoughts (<span id="active-count">0</span>)
             </h3>
-            <button id="btn-manual-test" class="text-xs bg-slate-950/80 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 text-purple-400 font-medium">
-              <i class="fa-solid fa-bolt"></i> Run Cron Force-Dispatch
-            </button>
           </div>
           <div id="active-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
             <!-- Render active thoughts dynamic components -->
@@ -917,6 +914,47 @@
     </section>
 
   </main>
+
+  <!-- Pop-up modal shown after a thought is successfully parked -->
+  <div id="park-modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden" role="dialog" aria-modal="true" aria-labelledby="park-modal-title">
+
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeParkModal()"></div>
+
+    <!-- Modal card -->
+    <div id="park-modal-card"
+      class="relative z-10 w-full max-w-sm bg-gradient-to-br from-slate-800 to-slate-900 border border-indigo-500/40 rounded-3xl shadow-2xl shadow-indigo-900/50 p-7 transform transition-all duration-300 scale-90 opacity-0">
+
+      <!-- Close (X) button -->
+      <button onclick="closeParkModal()" aria-label="Close"
+        class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-base"></i>
+      </button>
+
+      <!-- Emoji & title -->
+      <div class="text-center mb-5">
+        <div class="text-5xl mb-3">🎉</div>
+        <h2 id="park-modal-title" class="text-xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Thought Parked &amp; Locked!
+        </h2>
+      </div>
+
+      <!-- Short funny message -->
+      <p class="text-slate-300 text-sm leading-relaxed text-center">
+        That garbage thought? <span class="text-indigo-300 font-semibold">Locked away.</span>
+        We'll send you a funny email when it's officially time to worry about it.
+        Until then — your brain can relax. 😌
+        <span class="block mt-3 text-slate-200 font-semibold">Now go be awesome and finish what you started. You've got this! 💪</span>
+      </p>
+
+      <!-- Close button -->
+      <button onclick="closeParkModal()"
+        class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3 rounded-xl transition active:scale-[0.98] flex items-center justify-center gap-2">
+        Got it, back to work 🚀
+      </button>
+
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="border-t border-slate-800 py-8 mt-8">
