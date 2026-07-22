@@ -4,7 +4,7 @@ A mental health tool that helps people break the anxiety loop caused by intrusiv
 
 > Built on the **Scheduled Worry Time** technique from Cognitive Behavioral Therapy (CBT).
 
-**Live Demo:** [your-render-url-here]
+**Live Demo:** [https://intrusive-thought-parking-system.onrender.com]
 
 ---
 
