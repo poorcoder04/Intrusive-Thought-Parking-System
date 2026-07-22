@@ -800,12 +800,13 @@
       </form>
 
       <!-- Register Form Component (Hidden by default) -->
+      <!-- Fix #9: All inputs now have required attribute -->
       <form id="register-form" class="space-y-5 hidden">
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Full Name</label>
           <div class="relative">
             <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-500"></i>
-            <input type="text" id="reg-name" placeholder="John Doe" 
+            <input type="text" id="reg-name" required minlength="2" maxlength="50" placeholder="John Doe"
               class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
           </div>
         </div>
@@ -813,7 +814,7 @@
           <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
           <div class="relative">
             <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-500"></i>
-            <input type="email" id="reg-email" placeholder="name@domain.com" 
+            <input type="email" id="reg-email" required placeholder="name@domain.com"
               class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
           </div>
         </div>
@@ -821,7 +822,7 @@
           <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Password</label>
           <div class="relative">
             <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-500"></i>
-            <input type="password" id="reg-password" minlength="6" placeholder="Min 6 characters" 
+            <input type="password" id="reg-password" required minlength="6" maxlength="128" placeholder="Min 6 characters"
               class="w-full pl-11 pr-4 py-3 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-slate-100 placeholder:text-slate-600">
           </div>
         </div>
@@ -850,19 +851,31 @@
               class="w-full p-4 bg-slate-950/40 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-100 resize-none placeholder:text-slate-600"></textarea>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
+          <!-- Fix #15: Native time picker instead of free text -->
+          <!-- Fix #13: Custom date option added -->
+          <div class="space-y-4">
             <div>
               <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Which Day?</label>
-              <select id="thought-date" class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200">
-                <option value="Today">Today</option>
-                <option value="Tomorrow">Tomorrow</option>
-                <option value="The next day">The next day</option>
+              <select id="thought-date" onchange="handleDateOptionChange(this.value)"
+                class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200">
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="the next day">The Next Day</option>
+                <option value="custom">Pick a Date...</option>
               </select>
             </div>
+
+            <!-- Custom date picker — shown only when "Pick a Date" is selected -->
+            <div id="custom-date-wrapper" class="hidden">
+              <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Select Date</label>
+              <input type="date" id="thought-custom-date"
+                class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200 [color-scheme:dark]">
+            </div>
+
             <div>
               <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Worry Time</label>
-              <input type="text" id="thought-time" required placeholder="12:30 AM" 
-                class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200 placeholder:text-slate-600">
+              <input type="time" id="thought-time" required
+                class="w-full px-3 py-2.5 bg-slate-950/60 border border-slate-700 rounded-xl focus:outline-none focus:border-indigo-500 transition text-sm text-slate-200 [color-scheme:dark]">
             </div>
           </div>
 
@@ -877,13 +890,10 @@
         
         <!-- Live Active Queues -->
         <div class="bg-slate-800/30 border border-slate-700/40 p-6 rounded-2xl flex-1">
-          <div class="flex justify-between items-center border-b border-slate-700/60 pb-4 mb-4">
+          <div class="border-b border-slate-700/60 pb-4 mb-4">
             <h3 class="text-md font-bold text-amber-400 flex items-center gap-2">
-              <i class="fa-solid fa-hourglass-half animate-spin-slow"></i> Active Shelved Worries (<span id="active-count">0</span>)
+              <i class="fa-solid fa-hourglass-half animate-spin-slow"></i> Your Parked Thoughts (<span id="active-count">0</span>)
             </h3>
-            <button id="btn-manual-test" class="text-xs bg-slate-950/80 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 text-purple-400 font-medium">
-              <i class="fa-solid fa-bolt"></i> Run Cron Force-Dispatch
-            </button>
           </div>
           <div id="active-list" class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
             <!-- Render active thoughts dynamic components -->
@@ -904,6 +914,47 @@
     </section>
 
   </main>
+
+  <!-- Pop-up modal shown after a thought is successfully parked -->
+  <div id="park-modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden" role="dialog" aria-modal="true" aria-labelledby="park-modal-title">
+
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeParkModal()"></div>
+
+    <!-- Modal card -->
+    <div id="park-modal-card"
+      class="relative z-10 w-full max-w-sm bg-gradient-to-br from-slate-800 to-slate-900 border border-indigo-500/40 rounded-3xl shadow-2xl shadow-indigo-900/50 p-7 transform transition-all duration-300 scale-90 opacity-0">
+
+      <!-- Close (X) button -->
+      <button onclick="closeParkModal()" aria-label="Close"
+        class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-xl bg-slate-700/60 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-base"></i>
+      </button>
+
+      <!-- Emoji & title -->
+      <div class="text-center mb-5">
+        <div class="text-5xl mb-3">🎉</div>
+        <h2 id="park-modal-title" class="text-xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Thought Parked &amp; Locked!
+        </h2>
+      </div>
+
+      <!-- Short funny message -->
+      <p class="text-slate-300 text-sm leading-relaxed text-center">
+        That garbage thought? <span class="text-indigo-300 font-semibold">Locked away.</span>
+        We'll send you a funny email when it's officially time to worry about it.
+        Until then — your brain can relax. 😌
+        <span class="block mt-3 text-slate-200 font-semibold">Now go be awesome and finish what you started. You've got this! 💪</span>
+      </p>
+
+      <!-- Close button -->
+      <button onclick="closeParkModal()"
+        class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3 rounded-xl transition active:scale-[0.98] flex items-center justify-center gap-2">
+        Got it, back to work 🚀
+      </button>
+
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="border-t border-slate-800 py-8 mt-8">
