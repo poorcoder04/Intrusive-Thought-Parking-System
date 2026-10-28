@@ -30,6 +30,11 @@ const authLimiter = rateLimit({
 //  Static files 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Health-check endpoint — used by Render's uptime monitor and the keep-alive self-ping
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 //Routes 
 const authRoutes           = require('./route/authRoute.js');
 const parkThoughtRoutes    = require('./route/parkThoughtRoute.js');

@@ -48,7 +48,7 @@ When an intrusive thought strikes, your brain screams *"Deal with this NOW!"* �
 | Framework | Express.js 5 |
 | Database | MongoDB + Mongoose |
 | Authentication | JWT (jsonwebtoken) + bcrypt |
-| Email | Nodemailer (Gmail SMTP) |
+| Email | Brevo HTTP API (transactional email) |
 | Scheduling | node-cron |
 | Frontend | Vanilla JS + Tailwind CSS (CDN) + Font Awesome |
 | Hosting | Render |
@@ -127,15 +127,16 @@ PORT=3000
 MONGO_URI=your_mongodb_atlas_connection_string
 JWT_SECRET=your_random_secret_key
 
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_USER=your_gmail_address
-SMTP_PASS=your_gmail_app_password
-EMAIL_FROM="Thought Parking Garage <your_gmail_address>"
+# Brevo (formerly Sendinblue) — used for email delivery
+BREVO_API_KEY=your_brevo_api_key
+BREVO_SENDER_EMAIL=your_verified_sender@example.com
+
+# Optional: only needed when deployed on Render (see Deployment section)
+# RENDER_EXTERNAL_URL=https://your-app-name.onrender.com
 ```
 
-> For `SMTP_PASS`, use a **Gmail App Password**, not your real Gmail password.
-> Generate one at: Google Account → Security → 2-Step Verification → App Passwords
+> Get a free Brevo API key at [brevo.com](https://app.brevo.com) → Settings → API Keys.
+> `BREVO_SENDER_EMAIL` must be a verified sender domain/address in your Brevo account.
 
 **4. Run the development server**
 
@@ -169,11 +170,20 @@ Auth routes are rate-limited to **20 requests per 15 minutes** per IP.
 | `PORT` | Port the server runs on (default 3000) |
 | `MONGO_URI` | MongoDB Atlas connection string |
 | `JWT_SECRET` | Secret key for signing JWTs |
-| `SMTP_HOST` | SMTP server host |
-| `SMTP_PORT` | SMTP port (465 for SSL) |
-| `SMTP_USER` | Your Gmail address |
-| `SMTP_PASS` | Gmail App Password |
-| `EMAIL_FROM` | Sender name and address shown in emails |
+| `BREVO_API_KEY` | Brevo API key for transactional email |
+| `BREVO_SENDER_EMAIL` | Verified sender email in your Brevo account |
+| `RENDER_EXTERNAL_URL` | **Required on Render** — your app's public URL (e.g. `https://intrusive-thought-parking-system.onrender.com`). Enables the built-in keep-alive self-ping that prevents Render free tier from spinning down. |
+
+---
+
+## Deployment on Render
+
+1. Push to GitHub, then create a new **Web Service** on [render.com](https://render.com) pointing at your repo.
+2. Set the **Build Command**: `npm install`
+3. Set the **Start Command**: `node index.js`
+4. Add all environment variables listed above in **Environment → Add Environment Variable**.
+   - `RENDER_EXTERNAL_URL` must be set to your Render app's public URL — this activates the keep-alive ping that prevents the free tier from sleeping.
+5. Deploy. The `/health` endpoint is available for Render's health-check configuration.
 
 ---
 
